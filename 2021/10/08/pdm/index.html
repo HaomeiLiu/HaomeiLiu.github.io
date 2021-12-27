@@ -22,18 +22,21 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"haomeiliu.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="A fiction writer, who does not love classical music, is not a good engineer.">
+<meta name="description" content="SummaryPower distribution has always been a problem on our past cars. The power distribution module is electrical team’s attempt to integrate messy wires and components into one elegant piece of PCB.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="USC Racing - Power Distribution Module">
 <meta property="og:url" content="http://haomeiliu.github.io/2021/10/08/pdm/index.html">
 <meta property="og:site_name" content="进击的大白鲨">
-<meta property="og:description" content="A fiction writer, who does not love classical music, is not a good engineer.">
+<meta property="og:description" content="SummaryPower distribution has always been a problem on our past cars. The power distribution module is electrical team’s attempt to integrate messy wires and components into one elegant piece of PCB.">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://haomeiliu.github.io/images/projects/project_racing_pdm.png">
+<meta property="og:image" content="http://haomeiliu.github.io/images/projects/project_racing_pdm_pcb.jpg">
 <meta property="article:published_time" content="2021-10-08T23:03:41.000Z">
-<meta property="article:modified_time" content="2021-12-16T22:15:26.601Z">
+<meta property="article:modified_time" content="2021-12-27T00:03:25.090Z">
 <meta property="article:author" content="Haomei Liu">
 <meta property="article:tag" content="projects">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://haomeiliu.github.io/images/projects/project_racing_pdm.png">
 
 
 <link rel="canonical" href="http://haomeiliu.github.io/2021/10/08/pdm/">
@@ -113,7 +116,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -126,6 +129,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-number">1.</span> <span class="nav-text">Summary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-Statement"><span class="nav-number">2.</span> <span class="nav-text">Problem Statement</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Design-Procedure"><span class="nav-number">3.</span> <span class="nav-text">Design Procedure</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CAN"><span class="nav-number">4.</span> <span class="nav-text">CAN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Buck"><span class="nav-number">5.</span> <span class="nav-text">Buck</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-not-LDO-low-dropout"><span class="nav-number">5.1.</span> <span class="nav-text">Why not LDO? (low dropout)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Improvements-for-SC22-Iteration"><span class="nav-number">6.</span> <span class="nav-text">Improvements for SC22 Iteration</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -140,7 +144,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -223,7 +227,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-12-16 14:15:26" itemprop="dateModified" datetime="2021-12-16T14:15:26-08:00">2021-12-16</time>
+        <time title="Modified: 2021-12-26 16:03:25" itemprop="dateModified" datetime="2021-12-26T16:03:25-08:00">2021-12-26</time>
       </span>
 
   
@@ -236,7 +240,36 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        
+        <h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>Power distribution has always been a problem on our past cars. The power distribution module is electrical team’s attempt to integrate messy wires and components into one elegant piece of PCB. </p>
+<img src="/images/projects/project_racing_pdm.png" alt="layout" width="500"/>
+
+<img src="/images/projects/project_racing_pdm_pcb.jpg" alt="layout" width="500"/>
+
+<span id="more"></span>
+
+<h2 id="Problem-Statement"><a href="#Problem-Statement" class="headerlink" title="Problem Statement"></a>Problem Statement</h2><blockquote>
+<p>Power distribution is largely an analog electrical system in FSAE electrical systems. Introducing digital control to the system will allow efficient use of the available power and intelligent routing of that power to the subsystems that require it. Furthermore, it is an opportunity to consolidate multiple systems on the electronics front plate into one place to fulfill the goal of simplifying the cable harness on SCR21.</p>
+<p>Use the board-space for a microcontroller and current sensors to monitor power-flow, for a 12V-5V converter for 5V power-rail on the vehicle, and an SD-card for data-logging via the vehicle’s Controller Area Network. This eliminates the need for an external 5V converter and data loggers as used in previous years. This replaces nearly 2lbs of components with a couple of grams at most and simplifies the electronics harness.</p>
+<p>—PDM Report</p>
+</blockquote>
+<h2 id="Design-Procedure"><a href="#Design-Procedure" class="headerlink" title="Design Procedure"></a>Design Procedure</h2><ul>
+<li>breadboard prototype (in this case, we had these parts tested in previous years’ cars, just in separate components), software ready in use</li>
+<li>PCB drawing (Autodesk fusion turned out to be a bad choice)</li>
+<li>Manufacture</li>
+<li>Testing (by parts: high to low voltage)</li>
+</ul>
+<h2 id="CAN"><a href="#CAN" class="headerlink" title="CAN"></a>CAN</h2><p>CAN transceiver - MCP2561 by Microchip, low standby current consumption</p>
+<p>Special consideration in PCB design: decoupling caps, CANH and CANL uses differential transmission, so close to each other, self-oscillation filter resistor between CANH and CANL.</p>
+<h2 id="Buck"><a href="#Buck" class="headerlink" title="Buck"></a>Buck</h2><h3 id="Why-not-LDO-low-dropout"><a href="#Why-not-LDO-low-dropout" class="headerlink" title="Why not LDO? (low dropout)"></a>Why not LDO? (low dropout)</h3><ul>
+<li>Difference between input and output voltage is too big (7v)</li>
+<li>High power requirement (high output current)</li>
+<li>Supply to digital - not very sensitive to noise</li>
+</ul>
+<h2 id="Improvements-for-SC22-Iteration"><a href="#Improvements-for-SC22-Iteration" class="headerlink" title="Improvements for SC22 Iteration"></a>Improvements for SC22 Iteration</h2><ul>
+<li>Seperate analog and digital: keep analog in PDM, move digital parts to dash </li>
+<li>Some traces and parts are revised for better eletrical characteristics or easier soldering.</li>
+</ul>
+
     </div>
 
     
@@ -257,8 +290,8 @@
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/12/14/ee477/" rel="next" title="VLSI Project - 6-bit ALU">
-                  VLSI Project - 6-bit ALU <i class="fa fa-chevron-right"></i>
+                <a href="/2021/11/15/dynamap/" rel="next" title="Dynamap Project - CNN Model Acceleration Using FPGA">
+                  Dynamap Project - CNN Model Acceleration Using FPGA <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
