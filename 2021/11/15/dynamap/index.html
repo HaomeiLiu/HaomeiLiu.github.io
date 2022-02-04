@@ -29,12 +29,16 @@
 <meta property="og:site_name" content="进击的大白鲨">
 <meta property="og:description" content="SummaryThis project is for Dr. Prassana’s FPGA&#x2F;Parallel Computing Lab at USC, advised by Sanmukh Kuppannagari. The project aims to build an end-to-end framework based on an existed work that accelerat">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://haomeiliu.github.io/images/projects/project_dynamap_existed.jpg">
+<meta property="og:image" content="http://haomeiliu.github.io/images/projects/project_dynamap_proposed.jpg">
+<meta property="og:image" content="http://haomeiliu.github.io/images/projects/project_dynamap_output.jpg">
 <meta property="article:published_time" content="2021-11-15T23:12:51.000Z">
-<meta property="article:modified_time" content="2021-12-27T00:04:49.683Z">
+<meta property="article:modified_time" content="2022-02-04T10:15:32.253Z">
 <meta property="article:author" content="Haomei Liu">
 <meta property="article:tag" content="research">
 <meta property="article:tag" content="projects">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://haomeiliu.github.io/images/projects/project_dynamap_existed.jpg">
 
 
 <link rel="canonical" href="http://haomeiliu.github.io/2021/11/15/dynamap/">
@@ -121,7 +125,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-number">1.</span> <span class="nav-text">Summary</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-number">1.</span> <span class="nav-text">Summary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Project-Overview"><span class="nav-number">2.</span> <span class="nav-text">Project Overview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Input-End"><span class="nav-number">3.</span> <span class="nav-text">Input End</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Output-End"><span class="nav-number">4.</span> <span class="nav-text">Output End</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -220,7 +224,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-12-26 16:04:49" itemprop="dateModified" datetime="2021-12-26T16:04:49-08:00">2021-12-26</time>
+        <time title="Modified: 2022-02-04 02:15:32" itemprop="dateModified" datetime="2022-02-04T02:15:32-08:00">2022-02-04</time>
       </span>
 
   
@@ -236,6 +240,21 @@
         <h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>This project is for Dr. Prassana’s FPGA/Parallel Computing Lab at USC, advised by Sanmukh Kuppannagari. The project aims to build an end-to-end framework based on an existed work that accelerates CNN models using FPGA. </p>
 <p>Check the existed Dynamap Project <a target="_blank" rel="noopener" href="https://github.com/CatherineMeng/DYNAMAP">here</a>.</p>
 <span id="more"></span>
+
+<h2 id="Project-Overview"><a href="#Project-Overview" class="headerlink" title="Project Overview"></a>Project Overview</h2><p>Convolution layers are major building blocks of CNNs. There are several algorithms proposed to efficiently implement general-matrix-multiplication, including im2col, kn2row, and Winograd method. Each algorithm performs differently depending on the convolution later. It is not sufficient to assign layer-wise optimal algorithm, because for each algorithm implementation, data needs to be reformatted, which results in significant overhead. In addition, it is also crucial to consider the hardware architecture codesigned with algorithm mapping.</p>
+<p>Dynamap is an existed project that takes in a CNN model and assigns each layer with the optimized algorithm to reduce the overall latency of inference. The code on Github includes the core algorithm to achieve desired functionalities, but implementing it on an FPGA can be hard if a user does not have prior knowledge to the project. As indicated below, a custom input format rather than a standard format is required. Users need to manually feed the intermediate outputs to different pieces of code in order to obtain the final bitstream.</p>
+<img src="/images/projects/project_dynamap_existed.jpg" alt="layout" width="500"/>
+
+<p>The goal of this end-to-end framework is to encapsulate the entire process. It accepts a CNN model in a standard format and produce an output bitstream. Intermediate steps are automized.</p>
+<img src="/images/projects/project_dynamap_proposed.jpg" alt="layout" width="300"/>
+
+<h2 id="Input-End"><a href="#Input-End" class="headerlink" title="Input End"></a>Input End</h2><p>Check code <a target="_blank" rel="noopener" href="https://github.com/HaomeiLiu/Dynamap">here</a></p>
+<h2 id="Output-End"><a href="#Output-End" class="headerlink" title="Output End"></a>Output End</h2><img src="/images/projects/project_dynamap_output.jpg" alt="layout" width="500"/>
+
+
+
+
+
 
 
 

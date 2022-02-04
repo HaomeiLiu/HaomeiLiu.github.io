@@ -31,9 +31,11 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://haomeiliu.github.io/images/projects/project_imede_block.jpg">
 <meta property="og:image" content="http://haomeiliu.github.io/images/projects/project_imede_mcu.jpg">
+<meta property="og:image" content="http://haomeiliu.github.io/images/projects/project_imede_sch.jpg">
+<meta property="og:image" content="http://haomeiliu.github.io/images/projects/project_imede_bridge.jpg">
 <meta property="og:image" content="http://haomeiliu.github.io/images/projects/project_imede_pcb.jpg">
 <meta property="article:published_time" content="2021-08-07T22:12:51.000Z">
-<meta property="article:modified_time" content="2021-12-26T23:43:15.355Z">
+<meta property="article:modified_time" content="2022-02-04T11:00:57.548Z">
 <meta property="article:author" content="Haomei Liu">
 <meta property="article:tag" content="research">
 <meta property="article:tag" content="projects">
@@ -125,7 +127,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-number">1.</span> <span class="nav-text">Summary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Main-Functionalities"><span class="nav-number">2.</span> <span class="nav-text">Main Functionalities</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hardware-Design"><span class="nav-number">3.</span> <span class="nav-text">Hardware Design</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PID-Control"><span class="nav-number">4.</span> <span class="nav-text">PID Control</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PWM"><span class="nav-number">5.</span> <span class="nav-text">PWM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Testing-Procedure"><span class="nav-number">6.</span> <span class="nav-text">Testing Procedure</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-number">1.</span> <span class="nav-text">Summary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Main-Functionalities"><span class="nav-number">2.</span> <span class="nav-text">Main Functionalities</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hardware-Design"><span class="nav-number">3.</span> <span class="nav-text">Hardware Design</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Heater-and-Sensor-Circuit"><span class="nav-number">4.</span> <span class="nav-text">Heater and Sensor Circuit</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Components"><span class="nav-number">4.1.</span> <span class="nav-text">Components</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Work-with-RTD-Sensor"><span class="nav-number">4.2.</span> <span class="nav-text">Work with RTD Sensor</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PID-Control"><span class="nav-number">5.</span> <span class="nav-text">PID Control</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PWM"><span class="nav-number">6.</span> <span class="nav-text">PWM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Testing-Procedure"><span class="nav-number">7.</span> <span class="nav-text">Testing Procedure</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -224,7 +226,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-12-26 15:43:15" itemprop="dateModified" datetime="2021-12-26T15:43:15-08:00">2021-12-26</time>
+        <time title="Modified: 2022-02-04 03:00:57" itemprop="dateModified" datetime="2022-02-04T03:00:57-08:00">2022-02-04</time>
       </span>
 
   
@@ -249,7 +251,20 @@
 </ul>
 <h2 id="Hardware-Design"><a href="#Hardware-Design" class="headerlink" title="Hardware Design"></a>Hardware Design</h2><img src="/images/projects/project_imede_mcu.jpg" alt="layout" width="500"/>
 
-<p>The ATmega328P microcontroller controls the system. The body temperature is measured and transferred to the MCU through RS-232 serial port. A custom PCB is made to convert the resistance to a digital output, which is then input to the MCU to do PID calculation. The result of PID calculation is sent again to the PCB as duty cycles of PWM to drive the heating element. </p>
+<p>The ATmega328P microcontroller controls the system. The body temperature is measured and transferred to the MCU through RS-232 serial port. The heater temperature sensor is an resistor temperature detector (RTD), so a custom PCB is made to convert the resistance to a digital output, which is then input to the MCU to do PID calculation. The result of PID calculation is sent again to the PCB as duty cycles of PWM to drive the heating element. </p>
+<h2 id="Heater-and-Sensor-Circuit"><a href="#Heater-and-Sensor-Circuit" class="headerlink" title="Heater and Sensor Circuit"></a>Heater and Sensor Circuit</h2><img src="/images/projects/project_imede_sch.jpg" alt="layout" width="500"/>
+
+<h3 id="Components"><a href="#Components" class="headerlink" title="Components"></a>Components</h3><ul>
+<li>Temp Sensor: Heraeus RTD sensor</li>
+<li>Heating Element: Stainless Steel cartridge heaters</li>
+<li>Power Amplifier: STM L6202</li>
+<li>ADC: TI ADS1232</li>
+</ul>
+<h3 id="Work-with-RTD-Sensor"><a href="#Work-with-RTD-Sensor" class="headerlink" title="Work with RTD Sensor"></a>Work with RTD Sensor</h3><p>RTD sensor gives precise temperature measurement based on the changing resistance over temperature. Lead wire in RTD adds error in resistance measurement. There are 3 different wiring configurations: two-wire, three-wire, and four-wire. Increasing number of wire leads to more accurate result, but more expensive settings. Three-wire is used in this design.</p>
+<img src="/images/projects/project_imede_bridge.jpg" alt="layout" width="500"/>
+
+<p>A temperature transmitter in the form of Wheatstone bridge is used to measure the small variation in resistance of RTD sensor. It compares the resistance of the sensor with 3 known resistance.</p>
+<p>The set point is determined when the current sensor outputs zero. </p>
 <img src="/images/projects/project_imede_pcb.jpg" alt="layout" width="400"/>
 
 <h2 id="PID-Control"><a href="#PID-Control" class="headerlink" title="PID Control"></a>PID Control</h2><p>A temperature controller reads a changing input temperature and adjusts the output signal so that the result temperature reaches a steady state near a set-point. The most intuitive way of controlling a heating element would be using a simple on-off control: the heater is on below the set point, and off below the set point. However, this does not meet the design’s requirement for accuracy. </p>
