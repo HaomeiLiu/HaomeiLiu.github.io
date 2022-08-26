@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+  <link rel="mask-icon" href="/assets/safari-pinned-tab.svg" color="#222">
+  <link rel="manifest" href="/assets/site.webmanifest">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"haomeiliu.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="Random ForestRandom Forest is the combination of decision trees. To summarize it using one sentence, it utilizes the wisdom of crowds. What is Random Forest?  Random Forest belongs to Bagging (Bootstr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Random Forest Patch Prediction - Sketch Token and Structured Edge">
+<meta property="og:url" content="http://haomeiliu.github.io/2022/02/13/ee569-edge_detection-random_forest/index.html">
+<meta property="og:site_name" content="HL&#39;s Blog">
+<meta property="og:description" content="Random ForestRandom Forest is the combination of decision trees. To summarize it using one sentence, it utilizes the wisdom of crowds. What is Random Forest?  Random Forest belongs to Bagging (Bootstr">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://haomeiliu.github.io/images/ee569/edge-random_forest_cat.jpg">
+<meta property="og:image" content="http://haomeiliu.github.io/images/ee569/edge-decision_tree.jpg">
+<meta property="og:image" content="http://haomeiliu.github.io/images/ee569/edge-decision_tree_splitting.jpg">
+<meta property="article:published_time" content="2022-02-14T02:36:51.000Z">
+<meta property="article:modified_time" content="2022-05-14T20:40:28.110Z">
+<meta property="article:author" content="Haomei Liu">
+<meta property="article:tag" content="ee569">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://haomeiliu.github.io/images/ee569/edge-random_forest_cat.jpg">
+
+
+<link rel="canonical" href="http://haomeiliu.github.io/2022/02/13/ee569-edge_detection-random_forest/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://haomeiliu.github.io/2022/02/13/ee569-edge_detection-random_forest/","path":"2022/02/13/ee569-edge_detection-random_forest/","title":"Random Forest Patch Prediction - Sketch Token and Structured Edge"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Random Forest Patch Prediction - Sketch Token and Structured Edge | HL's Blog</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">HL's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Random-Forest"><span class="nav-number">1.</span> <span class="nav-text">Random Forest</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#What-is-Random-Forest"><span class="nav-number">1.1.</span> <span class="nav-text">What is Random Forest?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Steps-in-Constructing-Random-Forest"><span class="nav-number">1.2.</span> <span class="nav-text">4 Steps in Constructing Random Forest</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pros-and-Cons"><span class="nav-number">1.3.</span> <span class="nav-text">Pros and Cons</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sketch-Token"><span class="nav-number">2.</span> <span class="nav-text">Sketch Token</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Structured-Edge"><span class="nav-number">3.</span> <span class="nav-text">Structured Edge</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Haomei Liu"
+      src="/assets/favicon-32x32.png">
+  <p class="site-author-name" itemprop="name">Haomei Liu</p>
+  <div class="site-description" itemprop="description">A fiction writer, who does not love classical music, is not a good engineer.</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/HaomeiLiu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;HaomeiLiu" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:haomeili@usc.edu" title="E-Mail → mailto:haomeili@usc.edu" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://haomeiliu.github.io/2022/02/13/ee569-edge_detection-random_forest/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/assets/favicon-32x32.png">
+      <meta itemprop="name" content="Haomei Liu">
+      <meta itemprop="description" content="A fiction writer, who does not love classical music, is not a good engineer.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HL's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Random Forest Patch Prediction - Sketch Token and Structured Edge
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-02-13 18:36:51" itemprop="dateCreated datePublished" datetime="2022-02-13T18:36:51-08:00">2022-02-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="Random-Forest"><a href="#Random-Forest" class="headerlink" title="Random Forest"></a>Random Forest</h2><p>Random Forest is the combination of decision trees. To summarize it using one sentence, it utilizes the wisdom of crowds.</p>
+<h3 id="What-is-Random-Forest"><a href="#What-is-Random-Forest" class="headerlink" title="What is Random Forest?"></a>What is Random Forest?</h3><img src="/images/ee569/edge-random_forest_cat.jpg" alt="layout" width="500"/>
+
+<p>Random Forest belongs to <em>Bagging</em> (Bootstrap AGgregation) in ensemble learning. </p>
+<img src="/images/ee569/edge-decision_tree.jpg" alt="layout" width="500"/>
+
+<p>Decision tree is a supervised-learning algorithm based on if-else principle. Each node splits the group to two branches by features with the goal of splitting as different as possible. The branching feature is chosen based on measuring the information gain (e.g. Shannon Entropy, Gini impurity): the feature that yields the highest gain will be selected. </p>
+<img src="/images/ee569/edge-decision_tree_splitting.jpg" alt="layout" width="800"/>
+
+<p>Training of decision tree builds the tree and determines features to be used at each node. Testing of decision tree is to traverse the tree and get a prediction at the leaf node. </p>
+<p>Individual decision trees tend to have high variance and overfit. To fix the problem, we can use de-correlated decision trees and combine their results. Random Forest is comprised of multiple independent decision trees (low correlation). When performing a classification task, input is fed into every decision trees, and each tree gets a prediction. The forest’s final result is the category with the most votes. The diversity of decision trees within the random forrest can be achieved through random sampling of training data and random sampling of feature that splits each node. </p>
+<h3 id="4-Steps-in-Constructing-Random-Forest"><a href="#4-Steps-in-Constructing-Random-Forest" class="headerlink" title="4 Steps in Constructing Random Forest"></a>4 Steps in Constructing Random Forest</h3><ol>
+<li>Bagging: With a sample of size N, take a random sample of size N with replacement.</li>
+<li>Feature Randomness: The sample has M features. For each branch node, randomly choose m &lt;&lt; M number of features, and from this random subsem features, use some strategy to decide the one particular feature used for branching. This step allows lower correlation.</li>
+<li>Repeat step 2 until no more branching can be done.</li>
+<li>Repeat this process to create multiple decision trees.</li>
+</ol>
+<h3 id="Pros-and-Cons"><a href="#Pros-and-Cons" class="headerlink" title="Pros and Cons"></a>Pros and Cons</h3><ul>
+<li><p>Advantage:</p>
+<ul>
+<li>Low computation cost</li>
+<li>High ability to select effective features</li>
+<li>Not sensitive to feature normalization</li>
+<li>Sufficient diversity of trees can avoid overfit</li>
+</ul>
+</li>
+<li><p>Disadvantage:</p>
+<ul>
+<li>Proved overfit for certain problems with large noise.</li>
+</ul>
+</li>
+</ul>
+<h2 id="Sketch-Token"><a href="#Sketch-Token" class="headerlink" title="Sketch Token"></a>Sketch Token</h2><p><a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/research/wp-content/uploads/2013/06/LimCVPR13SketchTokens.pdf">Sketch Token Paper</a></p>
+<h2 id="Structured-Edge"><a href="#Structured-Edge" class="headerlink" title="Structured Edge"></a>Structured Edge</h2><p><a target="_blank" rel="noopener" href="https://pdollar.github.io/files/papers/DollarPAMI15edges.pdf">Structured Edge Paper</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ee569/" rel="tag"># ee569</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/12/14/ee477/" rel="prev" title="VLSI Project - 6-bit ALU">
+                  <i class="fa fa-chevron-left"></i> VLSI Project - 6-bit ALU
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/05/05/ee577a/" rel="next" title="An Energy-Efficient 4 Kb 10T SRAM Array with In-Memory Computing">
+                  An Energy-Efficient 4 Kb 10T SRAM Array with In-Memory Computing <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fas fa-dragon"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Haomei Liu</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
