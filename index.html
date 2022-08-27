@@ -221,13 +221,14 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>My name is Haomei Liu and I am a graduate student majoring in electrical engineering at USC. </p>
-<p>This blog includes some of my past and onging projects. Here is a short list of highlighted projects:</p>
+          <p>My name is Haomei Liu and I am a graduate student majoring in electrical engineering at USC. I will be graduating with a Master’s in EE this Dec.</p>
+<p>My main interest is in VLSI and computer architecture. I have taken courseworks that conver a broad spectrum, including digital system design, VLSI design, DSP, digital image processing, and embedded systems. </p>
+<p>This blog includes some of my past and ongoing projects. Here is a short list of highlighted projects:</p>
 <ul>
+<li><a href="https://haomeiliu.github.io/2022/05/05/ee577a/">VLSI - Energy-Efficient In-Memory SRAM</a></li>
 <li><a href="https://haomeiliu.github.io/2021/12/14/ee477/">VLSI - 6-bit ALU</a></li>
-<li><a href="https://haomeiliu.github.io/2021/11/15/dynamap/">CNN Model Acceleration Using FPGA</a></li>
+<li><a href="https://haomeiliu.github.io/2021/11/15/dynamap/">CNN Acceleration Using FPGA</a></li>
 <li><a href="https://haomeiliu.github.io/2021/10/08/pdm/">Power Distribution Module for Race Car</a></li>
-<li><a href="https://haomeiliu.github.io/2021/08/07/imede/">Temperature Sensing and Control System</a></li>
 </ul>
 <p>Scroll down for details of these projects, or view a complete list of projects <a href="https://haomeiliu.github.io/tags/projects/">here</a>.</p>
 
@@ -294,6 +295,8 @@
     
     <div class="post-body" itemprop="articleBody">
           <h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p><em>Cycle</em> is a product designed for USC’s embedded system design capstone. Our team designed a smart recycling bin to give users better experience and more motivation in collecting recyclable items. With a snap of the fingers, <em>Cycle</em> opens its lid automatically, waits for you to drop in the trash, and closes the lid. It shows the carbon generation saved by your effort in collecting recyclable items on an OLED, and gives you updates on garbage collection information. Even cooler, if your cat knows over your trash can during the day, or if your garbage decomposes and smells badly, <em>Cycle</em> will send a real-time text alert message to your phone.</p>
+<p>Programming language: C<br>MCUs: Atmega328p, esp8266</p>
+<img src="/images/projects/project_cycle_block_main.jpg" alt="block diagram" width="500"/>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/05/10/ee459/#more" rel="contents">
@@ -364,7 +367,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>In this project for USC EE577a (VLSI System Design), we designed a 4KB 10T SRAM with in-memory computing capability and low power technique. Our design supports two modes of read: normal read, which functions as a standard SRAM, and in-memory read, which returns the XOR result of the two given address using in-memory computation. The overall energy consumption during both normal and in-memory operation is reduced by applying a lower Vdd on the SRAM array. </p>
+          <h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>In this project for USC EE577a (VLSI System Design), we designed a 4KB 10T SRAM with in-memory computing capability and low power technique. Our design supports two modes of read: normal read, which functions as a standard SRAM, and in-memory read, which returns the XOR result of the two given address using in-memory computation. The overall energy consumption during both normal and in-memory operations is reduced by applying a lowered Vdd on the SRAM array. </p>
+<p>Tool: Cadence Virtuoso</p>
 <img src="/images/projects/project_ee577a_block.jpg" alt="block" width="400"/>
           <!--noindex-->
             <div class="post-button">
@@ -436,41 +440,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="Random-Forest"><a href="#Random-Forest" class="headerlink" title="Random Forest"></a>Random Forest</h2><p>Random Forest is the combination of decision trees. To summarize it using one sentence, it utilizes the wisdom of crowds.</p>
-<h3 id="What-is-Random-Forest"><a href="#What-is-Random-Forest" class="headerlink" title="What is Random Forest?"></a>What is Random Forest?</h3><img src="/images/ee569/edge-random_forest_cat.jpg" alt="layout" width="500"/>
-
-<p>Random Forest belongs to <em>Bagging</em> (Bootstrap AGgregation) in ensemble learning. </p>
-<img src="/images/ee569/edge-decision_tree.jpg" alt="layout" width="500"/>
-
-<p>Decision tree is a supervised-learning algorithm based on if-else principle. Each node splits the group to two branches by features with the goal of splitting as different as possible. The branching feature is chosen based on measuring the information gain (e.g. Shannon Entropy, Gini impurity): the feature that yields the highest gain will be selected. </p>
-<img src="/images/ee569/edge-decision_tree_splitting.jpg" alt="layout" width="800"/>
-
-<p>Training of decision tree builds the tree and determines features to be used at each node. Testing of decision tree is to traverse the tree and get a prediction at the leaf node. </p>
-<p>Individual decision trees tend to have high variance and overfit. To fix the problem, we can use de-correlated decision trees and combine their results. Random Forest is comprised of multiple independent decision trees (low correlation). When performing a classification task, input is fed into every decision trees, and each tree gets a prediction. The forest’s final result is the category with the most votes. The diversity of decision trees within the random forrest can be achieved through random sampling of training data and random sampling of feature that splits each node. </p>
-<h3 id="4-Steps-in-Constructing-Random-Forest"><a href="#4-Steps-in-Constructing-Random-Forest" class="headerlink" title="4 Steps in Constructing Random Forest"></a>4 Steps in Constructing Random Forest</h3><ol>
-<li>Bagging: With a sample of size N, take a random sample of size N with replacement.</li>
-<li>Feature Randomness: The sample has M features. For each branch node, randomly choose m &lt;&lt; M number of features, and from this random subsem features, use some strategy to decide the one particular feature used for branching. This step allows lower correlation.</li>
-<li>Repeat step 2 until no more branching can be done.</li>
-<li>Repeat this process to create multiple decision trees.</li>
-</ol>
-<h3 id="Pros-and-Cons"><a href="#Pros-and-Cons" class="headerlink" title="Pros and Cons"></a>Pros and Cons</h3><ul>
-<li><p>Advantage:</p>
-<ul>
-<li>Low computation cost</li>
-<li>High ability to select effective features</li>
-<li>Not sensitive to feature normalization</li>
-<li>Sufficient diversity of trees can avoid overfit</li>
-</ul>
-</li>
-<li><p>Disadvantage:</p>
-<ul>
-<li>Proved overfit for certain problems with large noise.</li>
-</ul>
-</li>
-</ul>
-<h2 id="Sketch-Token"><a href="#Sketch-Token" class="headerlink" title="Sketch Token"></a>Sketch Token</h2><p><a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/research/wp-content/uploads/2013/06/LimCVPR13SketchTokens.pdf">Sketch Token Paper</a></p>
-<h2 id="Structured-Edge"><a href="#Structured-Edge" class="headerlink" title="Structured Edge"></a>Structured Edge</h2><p><a target="_blank" rel="noopener" href="https://pdollar.github.io/files/papers/DollarPAMI15edges.pdf">Structured Edge Paper</a></p>
-
+          <p>Notes on random forest</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/02/13/ee569-edge_detection-random_forest/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -606,7 +584,6 @@
     
     <div class="post-body" itemprop="articleBody">
           <h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>This project is for Dr. Prasanna’s FPGA/Parallel Computing Lab at USC, advised by Sanmukh Kuppannagari. The project aims to build an end-to-end framework that employs dynamic algorithm mapping on FPGAs. Our work implements the front-end using <em>PyTorch</em>, and the back-end using <em>HLS</em>. </p>
-<p>Check out the existed Dynamap Project <a target="_blank" rel="noopener" href="https://github.com/CatherineMeng/DYNAMAP">here</a>.</p>
 <div class="note success"><p>This work results in a paper titled "End to End Framework for CNN Acceleration on FPGAs with Dynamic Algorithm Mapping", which was submitted to IC3 '22 and presented on Aug. 4th, 2022 in the conference.
 </p></div>
           <!--noindex-->
